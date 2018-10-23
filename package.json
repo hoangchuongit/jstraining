@@ -1,0 +1,20 @@
+{
+  "name": "node-todo",
+  "version": "0.0.1",
+  "description": "Simple todo application.",
+  "main": "server.js",
+  "author": "Chuong.Hoang",
+  "scripts": {
+    "start": "pm2 delete all && pm2 flush && pm2 start server.js --watch && pm2 logs"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.10.8",
+    "firebase-admin": "^6.0.0",
+    "method-override": "^2.3.10",
+    "morgan": "^1.9.0"
+  },
+  "devDependencies": {
+    "pm2": "^3.2.2"
+  }
+}
