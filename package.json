@@ -5,9 +5,8 @@
   "main": "server.js",
   "author": "Chuong.Hoang",
   "scripts": {
-    "start": "node start server.js",
-    "pm2start": "pm2 start server.js",
-    "pm2restart": "pm2 delete all && pm2 flush && pm2 start server.js --watch && pm2 logs"
+    "start": "pm2 start server.js",
+    "restart": "pm2 delete all && pm2 flush && pm2 start server.js --watch && pm2 logs"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
