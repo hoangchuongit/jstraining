@@ -5,21 +5,25 @@ angular.module("todoController", [])
 		$scope.formData = {};
 		$scope.loading = true;
 
+		function convertData(res) {
+
+			var data = [];
+
+			if (res && typeof ({}) === typeof (res)) {
+				for (var key in res) {
+					data.push(angular.extend(res[key], { _id: key }));
+				}
+			}
+
+			return data;
+		}	
+
 		// GET =====================================================================
 		// when landing on the page, get all todos and show them
 		// use the service to get all the todos
 		Todos.get()
 			.success(function (res) {
-
-				var data = [];
-
-				if (res && typeof ({}) === typeof (res)) {
-					for (var key in res) {
-						data.push(angular.extend(res[key], { _id: key }));
-					}
-				}
-
-				$scope.todos = data;
+				$scope.todos = convertData(res);
 				$scope.loading = false;
 			});
 
@@ -36,10 +40,10 @@ angular.module("todoController", [])
 				Todos.create($scope.formData)
 
 					// if successful creation, call our get function to get all the new todos
-					.success(function (data) {
+					.success(function (res) {
 						$scope.loading = false;
 						$scope.formData = {}; // clear the form so our user is ready to enter another
-						$scope.todos = data; // assign our new list of todos
+						$scope.todos = convertData(res); // assign our new list of todos
 					});
 			}
 		};
@@ -51,9 +55,9 @@ angular.module("todoController", [])
 
 			Todos.delete(id)
 				// if successful creation, call our get function to get all the new todos
-				.success(function (data) {
+				.success(function (res) {
 					$scope.loading = false;
-					$scope.todos = data; // assign our new list of todos
+					$scope.todos = convertData(res); // assign our new list of todos
 				});
 		};
 	}]);

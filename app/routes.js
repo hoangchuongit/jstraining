@@ -34,10 +34,7 @@ module.exports = function (app) {
             text: req.body.text,
             done: false
         })
-            .then(function (err) {
-               
-                console.log(err);
-
+            .then(function (result) {
                 // get and return all the todos after you create another
                 getTodos(res);
             })
@@ -50,10 +47,7 @@ module.exports = function (app) {
     app.delete("/api/todos/:todo_id", function (req, res) {
 
         Todo.child(req.params.todo_id).remove()
-            .then(function (err) {
-                if (err)
-                    res.send(err);
-
+            .then(function (result) {
                 getTodos(res);
             })
             .catch(function (err) {
