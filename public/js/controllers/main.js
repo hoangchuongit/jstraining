@@ -47,7 +47,6 @@ angular.module("todoController", [])
 		// DELETE ==================================================================
 		// delete a todo after checking it
 		$scope.deleteTodo = function (id) {
-			debugger;
 			$scope.loading = true;
 
 			Todos.delete(id)

@@ -1,4 +1,5 @@
 var Todo = require("./models/todo");
+var Response = require("./config/constants");
 
 function getTodos(res) {
     console.log("error here");
@@ -34,8 +35,8 @@ module.exports = function (app) {
             done: false
         })
             .then(function (err) {
-                if (err)
-                    res.send(err);
+               
+                console.log(err);
 
                 // get and return all the todos after you create another
                 getTodos(res);
