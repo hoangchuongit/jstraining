@@ -12,12 +12,7 @@
 	<!-- SCROLLS -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-	<style>
-		html 					{ overflow-y:scroll; }
-		body 					{ padding-top:50px; }
-		#todo-list 				{ margin-bottom:30px; }
-		#todo-form 	 			{ margin-bottom:50px; }
-	</style>
+	<link rel="stylesheet" href="./style.css">
 	<link rel="shortcut icon" href="favicon.ico">
 
 	<!-- SPELLS -->
@@ -34,15 +29,12 @@
 
 		<!-- HEADER AND TODO COUNT -->
 		<div class="jumbotron text-center">
-			<h1>I"m a Todo-task <span class="label label-info">{{ todos.length }}</span></h1>
+			<h1>I'm a Todo-task <span class="label label-info">{{ todos.length }}</span></h1>
 		</div>
 
 		<!-- TODO LIST -->
 		<div id="todo-list" class="row">
 			<div class="col-sm-4 col-sm-offset-4">
-
-				
-
 				<!-- LOOP OVER THE TODOS IN $scope.todos -->
 				<div class="checkbox" ng-repeat="todo in todos">
 					<label>
@@ -53,25 +45,25 @@
 				<p class="text-center" ng-show="loading">
 					<span class="fa fa-spinner fa-spin fa-3x"></span>
 				</p>
+			</div>
 
+			<div class="col-sm-4 col-sm-offset-4 margin-top-20">
+				<button type="button" class="pull-right btn btn-primary add-todo" title="Add new Todo task"><i class="fa fa-plus" aria-hidden="true"></i></button>
 			</div>
 		</div>
 
+
 		<!-- FORM TO CREATE TODOS -->
-		<div id="todo-form" class="row">
+		<!-- <div id="todo-form" class="row">
 			<div class="col-sm-8 col-sm-offset-2 text-center">
 				<form>
 					<div class="form-group">
-
-						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
 						<input type="text" class="form-control input-lg text-center" placeholder="I want to buy a puppy that will love me forever" ng-model="formData.text">
 					</div>
-
-					<!-- createToDo() WILL CREATE NEW TODOS -->
 					<button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
 				</form>
 			</div>
-		</div>
+		</div> -->
 
 		<div class="text-center text-muted">
 			<p>A demo by <a href="https://github.com/hoangchuongit">Chuong</a>.</p>
