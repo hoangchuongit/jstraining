@@ -26,6 +26,20 @@ module.exports = function (app) {
         getTodos(res);
     });
 
+    // get todo detail
+    app.get("/api/todo/:todoId", function (req, res) {
+        Todo.child(req.params.todoId).once("value")
+        .then(function (snapshot) {
+            if (snapshot.exists()) {
+                res.json(snapshot.val());
+            }
+            res.send(null);
+        })
+        .catch(function (err) {
+            console.log(err);
+        })
+    });
+
     // create todo and send back all todos after creation
     app.post("/api/todos", function (req, res) {
 
@@ -44,15 +58,15 @@ module.exports = function (app) {
     });
 
     // delete a todo
-    app.delete("/api/todos/:todo_id", function (req, res) {
+    app.delete("/api/todos/:todoId", function (req, res) {
 
-        Todo.child(req.params.todo_id).remove()
+        Todo.child(req.params.todoId).remove()
             .then(function (result) {
                 getTodos(res);
             })
             .catch(function (err) {
                 console.log(err);
-            });;
+            });
     });
 
     // edit a todo
