@@ -1,5 +1,6 @@
 var Todo = require("./models/todo");
 var Response = require("./config/constants");
+var moment = require("moment");
 
 function getTodos(res) {
     console.log("error here");
@@ -15,6 +16,11 @@ function getTodos(res) {
         .catch(function (err) {
             console.log(err);
         })
+}
+
+function isDateValid(day) {
+    var date = moment(day);
+    return date.isValid();
 }
 
 module.exports = function (app) {
@@ -43,11 +49,32 @@ module.exports = function (app) {
     // create todo and send back all todos after creation
     app.post("/api/todos", function (req, res) {
 
-        // create a todo, information comes from AJAX request from Angular
-        Todo.push({
-            text: req.body.text,
+        var request = req.body;
+
+        var params = {
+            text: request.text,
+            date: request.date,
+            cost: request.cost || 0,
+            phone: request.phone || '',
             done: false
-        })
+        };
+
+        if (!isDateValid(params.date)) {
+            res.json({
+                message: "Date is not valid"
+            })
+        }
+
+        if (isNaN(params.cost)) {
+            res.json({
+                message: "Cost is not valid"
+            })
+        }
+
+        params.date = moment(params.date).format('YYYY-MM-DD');
+
+        // create a todo, information comes from AJAX request from Angular
+        Todo.push(params)
             .then(function (result) {
                 // get and return all the todos after you create another
                 getTodos(res);
@@ -72,13 +99,37 @@ module.exports = function (app) {
     // edit a todo
     app.put("/api/todos", function (req, res) {
 
-        var todoId = req.body.todoId;
+        var request = req.body;
+        var todoId = request.todoId;
         var params = {};
 
-        params[todoId] = {
-            text: req.body.text,
-            done: req.body.done
+        if (!todoId) {
+            res.json({
+                message: "Todo Id is not valid"
+            })
         }
+
+        if (!isDateValid(request.date)) {
+            res.json({
+                message: "Date is not valid"
+            })
+        }
+
+        if (isNaN(request.cost)) {
+            res.json({
+                message: "Cost is not valid"
+            })
+        }
+
+        params[todoId] = {
+            text: request.text,
+            date: moment(request.date).format("YYYY-MM-DD"),
+            cost: request.cost || 0,
+            phone: request.phone || '',
+            done: request.done
+        }
+
+        console.log(params);
 
         Todo.update(params)
             .then(function (result) {
